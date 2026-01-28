@@ -3,6 +3,8 @@
 *.iml
 out/
 build/
+**/out/          # Ensures all nested out folders are ignored
+**/.idea/        # Ensures nested IntelliJ folders are ignored
 
 # IntelliJ default ignored files
 /shelf/
