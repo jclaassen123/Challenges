@@ -1,0 +1,27 @@
+# ===== IntelliJ IDEA =====
+.idea/
+*.iml
+out/
+build/
+**/out/          # Ensures all nested out folders are ignored
+**/.idea/        # Ensures nested IntelliJ folders are ignored
+
+# IntelliJ default ignored files
+/shelf/
+/workspace.xml
+/httpRequests/
+/dataSources/
+/dataSources.local.xml
+
+# ===== Java =====
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# ===== MacOS =====
+.DS_Store
+
+# ===== Logs =====
+*.log
