@@ -117,7 +117,10 @@ public class MontanaLicenseLookup {
         // City already exists in memory
         if (cityToPrefix.containsKey(cityKey)) {
             int prefix = cityToPrefix.get(cityKey);
-            System.out.println(prefixToCounty.get(prefix));
+            CountyInfo county = prefixToCounty.get(prefix);
+            System.out.println("City: " + cityInput);
+            System.out.println("License Plate Prefix: " + prefix);
+            System.out.println("County: " + county.getName() + " (Seat: " + county.getSeat() + ")");
             return;
         }
 
