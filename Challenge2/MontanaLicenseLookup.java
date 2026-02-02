@@ -39,30 +39,30 @@ public class MontanaLicenseLookup {
             return;
         }
 
-        Scanner scanner = new Scanner(System.in);
+        // Use try-with-resources to ensure Scanner closes properly
+        try (Scanner scanner = new Scanner(System.in)) {
 
-        // Main program loop
-        while (true) {
-            System.out.println("\nChoose an option:");
-            System.out.println("1 - Lookup by license plate prefix");
-            System.out.println("2 - Lookup by city");
-            System.out.println("3 - Exit");
+            while (true) {
+                System.out.println("\nChoose an option:");
+                System.out.println("1 - Lookup by license plate prefix");
+                System.out.println("2 - Lookup by city");
+                System.out.println("3 - Exit");
 
-            String choice = scanner.nextLine().trim();
+                String choice = scanner.nextLine().trim();
 
-            if (choice.equals("3")) {
-                System.out.println("Goodbye!");
-                break;
+                if (choice.equals("3")) {
+                    System.out.println("Goodbye!");
+                    break;
+                }
+
+                switch (choice) {
+                    case "1" -> lookupByPrefix(scanner, prefixToCounty);
+                    case "2" -> lookupByCity(scanner, prefixToCounty, cityToPrefix);
+                    default -> System.out.println("Invalid option.");
+                }
             }
 
-            switch (choice) {
-                case "1" -> lookupByPrefix(scanner, prefixToCounty);
-                case "2" -> lookupByCity(scanner, prefixToCounty, cityToPrefix);
-                default -> System.out.println("Invalid option.");
-            }
-        }
-
-        scanner.close();
+        } // Scanner automatically closed here
     }
 
     /**
@@ -175,16 +175,23 @@ public class MontanaLicenseLookup {
 
                 String county = parts[0].trim();
                 String seat = parts[1].trim();
-                int prefix = Integer.parseInt(parts[2].trim());
                 String city = parts[3].trim();
 
-                // Only add prefix → county once
-                prefixToCounty.putIfAbsent(prefix, new CountyInfo(county, seat));
+                // Safely parse the prefix
+                try {
+                    int prefix = Integer.parseInt(parts[2].trim());
 
-                // Map city → prefix
-                cityToPrefix.put(city.toLowerCase(), prefix);
+                    // Only add prefix → county once
+                    prefixToCounty.putIfAbsent(prefix, new CountyInfo(county, seat));
 
-                loaded = true;
+                    // Map city → prefix (lowercase + trimmed)
+                    cityToPrefix.put(city.toLowerCase().trim(), prefix);
+
+                    loaded = true;
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Skipping invalid prefix for city: " + city);
+                }
             }
         } catch (IOException e) {
             System.out.println("Error reading CSV file.");
@@ -192,6 +199,7 @@ public class MontanaLicenseLookup {
 
         return loaded;
     }
+
 
     /**
      * Appends a new city to the CSV file in the format:
