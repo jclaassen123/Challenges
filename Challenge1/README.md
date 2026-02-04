@@ -14,7 +14,7 @@ MontanaLicenseLookup is a simple Java program that lets users look up Montana co
 - IntelliJ IDEA (or any Java IDE)
 - CSV file: MontanaCounties.csv in the project root directory
 
-**CSV Columns:**
+CSV Columns:
 - County Name
 - County Seat
 - Prefix
@@ -30,7 +30,7 @@ MontanaLicenseLookup is a simple Java program that lets users look up Montana co
 5. Follow the prompts:
    - Choose the type of information to display.
    - Enter numeric license plate prefixes.
-   - Type `exit` to quit.
+   - Type exit to quit.
 
 ---
 
@@ -38,3 +38,20 @@ MontanaLicenseLookup is a simple Java program that lets users look up Montana co
 
 1. Open a terminal and navigate to the project root folder.
 2. Compile the program by typing:
+
+javac MontanaLicenseLookup.java CountyInfo.java
+
+3. Run the program by typing:
+
+java MontanaLicenseLookup
+
+4. Follow the prompts:
+   - Choose the type of information to display.
+   - Enter numeric license plate prefixes.
+   - Type exit to quit.
+
+---
+
+## Design Notes
+
+The program loads all county data into memory from the CSV file for fast lookup. It uses object-oriented design so that the lookup functionality is reusable, and it asks the user once for the type of information to display to make the interface simpler.
