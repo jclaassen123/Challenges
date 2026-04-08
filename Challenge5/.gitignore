@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# IntelliJ
+.idea/
+*.iml
+
+# Java build artifacts
+out/
+build/
+target/
+*.class
+
+# Generated challenge outputs
+Institutions.csv
+Teams.csv
